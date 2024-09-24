@@ -20,7 +20,7 @@ public class Quotation {
     private String description;
 
     @Column(name = "LINE_ITEMS")
-    private Object lineItems;
+    private String lineItems;
 
     @Column(name = "SERVICE_CENTER_ID")
     private int serviceCenterId;

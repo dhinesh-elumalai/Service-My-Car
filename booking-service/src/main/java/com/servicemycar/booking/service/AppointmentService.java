@@ -49,6 +49,9 @@ public class AppointmentService {
      * @return
      */
     public String deleteAppointmentById(long appointmentId) {
+        Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointmentId);
+        if (appointmentOptional.isEmpty())
+            throw new BookingException(HttpStatus.BAD_REQUEST, "Invalid Appointment Id");
         appointmentRepository.deleteById(appointmentId);
         return "Appointment with id " + appointmentId + " is deleted successfully!";
     }
@@ -57,15 +60,17 @@ public class AppointmentService {
     /**
      * @return
      */
-    public String updateAppointment(long appointmentId, boolean isConfirmed, boolean isCompleted) {
+    public String updateAppointment(long appointmentId, Boolean isConfirmed, Boolean isCompleted) {
         Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointmentId);
-
         if (appointmentOptional.isEmpty())
             throw new BookingException(HttpStatus.BAD_REQUEST, "Invalid Appointment Id");
-
         var appointment = appointmentOptional.get();
-        appointment.setCompleted(isCompleted);
-        appointment.setConfirmed(isConfirmed);
+        if (isCompleted != null) {
+            appointment.setCompleted(isCompleted);
+        }
+        if (isConfirmed != null) {
+            appointment.setConfirmed(isConfirmed);
+        }
         appointmentRepository.save(appointment);
         return "Appointment with id " + appointmentId + " is updated successfully!";
     }

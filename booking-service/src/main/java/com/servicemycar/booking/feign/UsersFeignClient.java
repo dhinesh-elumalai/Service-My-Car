@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "user-service", url = "http://localhost:9093", path = "/users")
+@FeignClient(name = "user-service", url = "http://localhost:2022", path = "/users")
 public interface UsersFeignClient {
 
     @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)

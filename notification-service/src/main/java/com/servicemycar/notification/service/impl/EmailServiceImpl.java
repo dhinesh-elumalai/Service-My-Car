@@ -11,6 +11,7 @@ import com.servicemycar.notification.model.EmailDetails;
 import com.servicemycar.notification.service.EmailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -20,6 +21,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class EmailServiceImpl implements EmailService {
 
     @Autowired
@@ -60,6 +62,7 @@ public class EmailServiceImpl implements EmailService {
     public void sendEmailFromText(String recipients, String subject, String content) {
         MimeMessage message = javaMailSender.createMimeMessage();
         try {
+            log.info("Received request to send a mail with details , recipients : {} , subject : {}, content : {}", recipients, subject, content);
             message.setFrom(sender);
             message.setRecipients(MimeMessage.RecipientType.TO, recipients);
             message.setSubject(subject);

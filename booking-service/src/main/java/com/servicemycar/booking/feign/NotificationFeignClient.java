@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "notification-service", url = "http://localhost:9092", path = "/notifications")
+@FeignClient(name = "notification-service", url = "http://localhost:2023", path = "/notifications")
 public interface NotificationFeignClient {
 
     @PostMapping("/break-down-alert")

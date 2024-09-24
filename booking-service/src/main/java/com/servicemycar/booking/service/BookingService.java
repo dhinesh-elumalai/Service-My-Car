@@ -51,6 +51,7 @@ public class BookingService {
         }
         BreakDownAlert breakDownAlert = new BreakDownAlert();
         breakDownAlert.setCarModel(car.get().getModel());
+        breakDownAlert.setName(userData.getName());
         breakDownAlert.setLatitude(breakDownData.getLatitude());
         breakDownAlert.setLongitude(breakDownAlert.getLongitude());
         breakDownAlert.setEmail(userData.getEmail());

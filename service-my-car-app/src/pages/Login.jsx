@@ -27,9 +27,8 @@ const Login = () => {
         { username: username, password: password }
       );
       localStorage.setItem("authToken", response.data.token);
-      alert("Login successful!");
-      navigate("/");
       openNotificationWithIcon("Success", response?.data?.message, "success");
+      navigate("/");
     } catch (error) {
       openNotificationWithIcon("Failed", error?.message, "error");
     }

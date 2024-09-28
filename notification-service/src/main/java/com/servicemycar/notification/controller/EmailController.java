@@ -25,8 +25,15 @@ public class EmailController {
 
 
 
+    @PostMapping("/send-email/template")
+    public ResponseEntity<String> sendEmailFromTemplate(@RequestBody EmailDetails emailDetails){
+        emailService.sendEmailFromTemplate(emailDetails);
+        return new ResponseEntity<>("Success", HttpStatus.OK);
+    }
+
+
     @PostMapping("/send-email")
-    public ResponseEntity<String> sendBreakDownAlert(@RequestBody EmailDetails emailDetails){
+    public ResponseEntity<String> sendEmail(@RequestBody EmailDetails emailDetails){
         emailService.sendEmail(emailDetails);
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }

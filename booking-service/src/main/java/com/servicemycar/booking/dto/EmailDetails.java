@@ -1,4 +1,4 @@
-package com.servicemycar.notification.model;
+package com.servicemycar.booking.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

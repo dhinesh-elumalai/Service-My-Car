@@ -34,13 +34,16 @@ public class CarService {
      *
      * @return
      */
-    public CarData getCarByUserId(int userId){
-        return carRepository.findByUserId(userId).get();
+    public CarData getCarByUsername(String username){
+        if(carRepository.findByUsername(username).isEmpty()){
+            throw new RuntimeException("User does not have a car owned");
+        }
+        return carRepository.findByUsername(username).get();
     }
 
     /**
-     *
-     * @return
+     * Get Cars by user Id
+     * @return CarData
      */
     public CarData getCarById(int carId){
         return carRepository.findById(carId).get();

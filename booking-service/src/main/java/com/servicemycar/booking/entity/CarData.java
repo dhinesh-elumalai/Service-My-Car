@@ -28,7 +28,7 @@ public class CarData {
     @Column(name = "fuelType")
     private String fuelType;
 
-    @Column(name = "userId")
-    private int userId;
+    @Column(name = "username")
+    private String username;
 
 }

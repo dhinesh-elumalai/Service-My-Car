@@ -1,9 +1,9 @@
-<!-- File: notification-service/src/main/resources/templates/breakdown-notification-alert.html -->
+<!-- File: notification-service/src/main/resources/templates/service-quotation-request.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Breakdown Notification Alert</title>
+    <title>Service Quotation Request</title>
     <style>
         body {
             background-color: #f0f0f0;
@@ -52,9 +52,16 @@
 <body>
 <div class="container">
     <p>Dear Service Center,</p>
-    <p>A car of model <strong>${model}</strong> is stuck nearby your area and requires your help. Please reach out to Mr / Mrs <strong>${customerName}</strong> via email: <strong>${email}</strong> or mobile: <strong>${mobile}</strong> to help further.</p>
-    <p>Thank you,</p>
-    <p>Your Company Name</p>
+    <p>A user has requested a service quotation for their car. Below are the details:</p>
+    <ul>
+        <li><strong>Name:</strong> ${userName}</li>
+        <li><strong>Car Model:</strong> ${carModel}</li>
+        <li><strong>Email:</strong> ${email}</li>
+        <li><strong>Phone:</strong> ${phone}</li>
+    </ul>
+    <p>Please provide the quotation at your earliest convenience.</p>
+    <a href="https://yourportal.com/login?role=seller" class="button"> Click to Proceed >> </a>
+    <p>Thank you</p>
 </div>
 </body>
 </html>

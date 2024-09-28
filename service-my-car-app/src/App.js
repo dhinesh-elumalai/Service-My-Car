@@ -1,37 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Signup from './pages/Signup';
-import Login from './pages/Login';
-import Dashboard from './components/Dashboard';
-import { decodeToken } from './utils/token';
+// src/App.js
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import PrivateRoute from "./components/PrivateRoute";
+import MainPage from "./pages/MainPage";
+import "./App.css";
 
 const App = () => {
-  const [token, setToken] = useState(localStorage.getItem('token'));
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    if (token) {
-      const decodedUser = decodeToken(token);
-      setUser(decodedUser);
-      localStorage.setItem('token', token);
-    } else {
-      setUser(null);
-      localStorage.removeItem('token');
-    }
-  }, [token]);
-
   return (
-    <>
     <Router>
       <Routes>
-        <Route path="/signup" element={<Signup/>} />
-        <Route path="/login" element={<Login setToken={setToken} />}/>
-        <Route path="/dashboard" element={user ? <Dashboard user={user} /> : <Navigate to="/login" />}>
-        </Route>
-        <Navigate from="/" to="/login" />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <MainPage />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Router>
-    </>
   );
 };
 

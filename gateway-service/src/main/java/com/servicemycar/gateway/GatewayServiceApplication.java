@@ -3,6 +3,7 @@ package com.servicemycar.gateway;
 import com.servicemycar.gateway.config.AuthorizationFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.gateway.config.GlobalCorsProperties;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
@@ -24,4 +25,10 @@ public class GatewayServiceApplication {
 						.uri("http://localhost:2022/users/"))
 				.build();
 	}
+
+//	@Bean
+//	public GlobalCorsProperties globalCorsProperties() {
+//		return new GlobalCorsProperties();
+//	}
 }
+

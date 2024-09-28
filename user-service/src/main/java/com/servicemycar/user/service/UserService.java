@@ -9,6 +9,7 @@ import com.servicemycar.user.exception.UserException;
 import com.servicemycar.user.repos.UserRepository;
 import com.servicemycar.user.util.JWTUtils;
 import com.servicemycar.user.util.UserUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class UserService {
 
 
@@ -85,6 +87,7 @@ public class UserService {
      * @return Token and expiryTime
      */
     public LoginResponse login(LoginRequest loginRequest) {
+        log.info("Login request for password Encoded: {}", Base64Coder.encodeString(loginRequest.getPassword()));
         Optional<User> userOptional = userRepository.findByUsername(loginRequest.getUsername());
         User user = userOptional.orElseThrow(() -> new UserException(HttpStatus.UNAUTHORIZED, "Invalid Username!!"));
         if (!user.getPassword().equals(Base64Coder.encodeString(loginRequest.getPassword()))) {

@@ -12,7 +12,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 @Component
-public class AuthorizationFilter implements GlobalFilter, Ordered, GatewayFilter {
+public class AuthorizationFilter implements GatewayFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -29,8 +29,4 @@ public class AuthorizationFilter implements GlobalFilter, Ordered, GatewayFilter
        return JWTUtils.isValidToken(token);
     }
 
-    @Override
-    public int getOrder() {
-        return -1; // Ensure this filter is applied early
-    }
 }

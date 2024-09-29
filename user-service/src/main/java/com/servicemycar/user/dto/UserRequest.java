@@ -14,9 +14,9 @@ public class UserRequest {
 
     @JsonProperty(value = "username")
     private String userName;
-    @JsonProperty(value = "first_name")
+    @JsonProperty(value = "firstName")
     private String firstName;
-    @JsonProperty(value = "last_name")
+    @JsonProperty(value = "lastName")
     private String lastName;
     @JsonProperty(value = "email")
     private String email;
@@ -28,4 +28,6 @@ public class UserRequest {
     private String password;
     @JsonProperty(value = "createdBy")
     private String createdBy;
+    @JsonProperty(value = "userType")
+    private String userType;
 }

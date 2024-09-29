@@ -1,6 +1,6 @@
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
-export const decodeToken = (token) => {
+const decodeToken = (token) => {
   try {
     return jwtDecode(token);
   } catch (error) {
@@ -8,4 +8,34 @@ export const decodeToken = (token) => {
   }
 };
 
-export default decodeToken
+export const getUsername = () => {
+  try {
+    const authToken = localStorage.getItem("authToken");
+    const decodedToken = jwtDecode(authToken);
+    return decodedToken?.sub;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getUserFullName = () => {
+  try {
+    const authToken = localStorage.getItem("authToken");
+    const decodedToken = jwtDecode(authToken);
+    return decodedToken?.firstName + " " + decodedToken?.lastName;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getRole = () => {
+  try {
+    const authToken = localStorage.getItem("authToken");
+    const decodedToken = jwtDecode(authToken);    
+    return decodedToken?.role;
+  } catch (error) {
+    return null;
+  }
+};
+
+export default decodeToken;

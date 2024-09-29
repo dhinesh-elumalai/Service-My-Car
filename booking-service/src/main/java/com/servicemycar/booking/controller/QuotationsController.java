@@ -1,7 +1,7 @@
 package com.servicemycar.booking.controller;
 
 import com.servicemycar.booking.common.Response;
-import com.servicemycar.booking.dto.QuotationRequest;
+import com.servicemycar.booking.entity.QuotationRequest;
 import com.servicemycar.booking.entity.Quotation;
 import com.servicemycar.booking.service.QuotationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 public class QuotationsController {
 
     @Autowired
@@ -18,14 +19,22 @@ public class QuotationsController {
 
     @PostMapping(value = "/quotations/request")
     public ResponseEntity<Response<?>> requestQuotations(@RequestBody QuotationRequest quotationRequest) {
+
         return ResponseEntity.ok(new Response<>("1200", "Quotation requested successfully",
                 quotationService.requestQuotation(quotationRequest)));
     }
 
     @GetMapping(value = "/quotations")
     public ResponseEntity<Response<List<Quotation>>> getAllQuotations() {
-        return ResponseEntity.ok(new Response<List<Quotation>>("1200", "Quotations fetched successfully",
+        return ResponseEntity.ok(new Response<>("1200", "Quotations fetched successfully",
                 quotationService.getAllQuotations()));
+    }
+
+
+    @GetMapping(value = "/quotation-requests")
+    public ResponseEntity<Response<List<QuotationRequest>>> getAllQuotationRequests() {
+        return ResponseEntity.ok(new Response<>("1200", "Quotation Requests fetched successfully",
+                quotationService.getAllQuoteRequests()));
     }
 
     @PostMapping(value = "/quotations")
@@ -40,7 +49,7 @@ public class QuotationsController {
                 quotationService.getQuotationById(id)));
     }
 
-    @GetMapping(value = "/quotations/{username}")
+    @GetMapping(value = "/users/quotations/{username}")
     public ResponseEntity<Response<List<Quotation>>> getQuotationsByUsername(@PathVariable("username") String username) {
         return ResponseEntity.ok(new Response<>("1200", "Quotation fetched successfully",
                 quotationService.getQuotationByUsername(username)));

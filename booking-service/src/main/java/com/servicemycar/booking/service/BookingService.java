@@ -9,6 +9,7 @@ import com.servicemycar.booking.feign.NotificationFeignClient;
 import com.servicemycar.booking.feign.UsersFeignClient;
 import com.servicemycar.booking.repo.CarRepository;
 import com.servicemycar.booking.repo.ServiceCenterRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class BookingService {
 
 
@@ -45,7 +47,7 @@ public class BookingService {
         if(response.getStatusCode().is2xxSuccessful()){
             userData = Objects.requireNonNull(response.getBody()).getData();
         }
-        Optional<CarData> car = carRepository.findByUserId(userData.getUserId());
+        Optional<CarData> car = carRepository.findByUsername(breakDownData.getUsername());
         if(car.isEmpty()){
             throw new RuntimeException("User does not have a car owned");
         }
@@ -56,10 +58,11 @@ public class BookingService {
         breakDownAlert.setLongitude(breakDownAlert.getLongitude());
         breakDownAlert.setEmail(userData.getEmail());
         breakDownAlert.setMobile(userData.getPhone());
-        breakDownAlert.setLocation("Villupuram");
-        breakDownAlert.setLocationLink("https://maps.app.goo.gl/To96Z3XxxnByayp49");
-        List<String> recipients = serviceCenterRepository.findByCity("Villupuram").stream().map(ServiceCenter::getEmail).collect(Collectors.toList());
+        breakDownAlert.setLocation(userData.getAddress());
+        breakDownAlert.setLocationLink(breakDownAlert.getLocation());
+        List<String> recipients = serviceCenterRepository.findByCity(userData.getAddress()).stream().map(ServiceCenter::getEmail).collect(Collectors.toList());
         breakDownAlert.setRecipients(recipients);
+        log.info("Sending Notification Request {}", breakDownAlert);
         var notifyResponse = notificationClient.sendBreakDownAlert(breakDownAlert);
         if(notifyResponse.getStatusCode().is2xxSuccessful()){
             return "Service Centers Notified Successfully!";

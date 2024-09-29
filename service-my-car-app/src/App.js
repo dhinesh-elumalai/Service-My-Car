@@ -5,7 +5,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import PrivateRoute from "./components/PrivateRoute";
 import MainPage from "./pages/MainPage";
-import "./App.css";
+import Logout from "./pages/Logout";
+import TermsAndConditions from "./pages/TermsAndConditions/TermsAndConditions";
 
 const App = () => {
   return (
@@ -13,8 +14,10 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/app/logout" element={<Logout />} />
+        <Route path="/terms" element={<TermsAndConditions />} />
         <Route
-          path="/"
+          path="/app/*"
           element={
             <PrivateRoute>
               <MainPage />

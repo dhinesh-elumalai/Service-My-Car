@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class LoginResponse {
 
-    @JsonProperty("jwt_token")
+    @JsonProperty("jwtToken")
     private String jwtToken;
 
-    @JsonProperty("expiry_time")
+    @JsonProperty("expiryTime")
     private long expiryTime;
 
 }

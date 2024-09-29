@@ -42,6 +42,14 @@ public class ServiceCenterService {
      *
      * @return
      */
+    public List<ServiceCenter> getServiceCentersByUsername(String username){
+        return serviceCenterRepository.findByEmail(username);
+    }
+
+    /**
+     *
+     * @return
+     */
     public ServiceCenter getServiceCenterById(int carId){
         return serviceCenterRepository.findById(carId).get();
     }

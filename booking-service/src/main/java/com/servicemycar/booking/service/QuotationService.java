@@ -2,7 +2,7 @@ package com.servicemycar.booking.service;
 
 import com.servicemycar.booking.common.Constants;
 import com.servicemycar.booking.dto.EmailDetails;
-import com.servicemycar.booking.dto.QuotationRequest;
+import com.servicemycar.booking.entity.QuotationRequest;
 import com.servicemycar.booking.dto.UserResponse;
 import com.servicemycar.booking.entity.CarData;
 import com.servicemycar.booking.entity.Quotation;
@@ -11,6 +11,7 @@ import com.servicemycar.booking.exception.BookingException;
 import com.servicemycar.booking.feign.NotificationFeignClient;
 import com.servicemycar.booking.feign.UsersFeignClient;
 import com.servicemycar.booking.repo.QuotationRepository;
+import com.servicemycar.booking.repo.QuotationRequestRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,9 @@ public class QuotationService {
     @Autowired
     private NotificationFeignClient notificationFeignClient;
 
+    @Autowired
+    private QuotationRequestRepo quotationRequestRepo;
+
     /**
      * @param quotation Quotation
      * @return Quotation
@@ -56,6 +60,13 @@ public class QuotationService {
     /**
      * @return List<Quotation>
      */
+    public List<QuotationRequest> getAllQuoteRequests() {
+        return quotationRequestRepo.findAll();
+    }
+
+    /**
+     * @return List<Quotation>
+     */
     public List<Quotation> getQuotationByUsername(String username) {
         return quotationRepository.findByUsername(username);
     }
@@ -64,8 +75,8 @@ public class QuotationService {
     /**
      * @return List<Quotation>
      */
-    public List<Quotation> getQuotationByServiceCenter(int serviceCenterId) {
-        return quotationRepository.findByServiceCenterId(serviceCenterId);
+    public List<Quotation> getQuotationByServiceCenter(String serviceCenterId) {
+        return quotationRepository.findByServiceCenterUsername(serviceCenterId);
     }
 
     /**
@@ -97,6 +108,10 @@ public class QuotationService {
             throw new BookingException(HttpStatus.BAD_REQUEST, "Invalid User Id!!");
         }
         CarData car = carService.getCarByUsername(quotationRequest.getUsername());
+        quotationRequest.setCarBrand(car.getBrand());
+        quotationRequest.setCarModel(car.getModel());
+        quotationRequest.setCarYear(car.getYear());
+        quotationRequestRepo.save(quotationRequest);
         List<ServiceCenter> serviceCenters = serviceCenterService.getServiceCentersByCity(quotationRequest.getCity());
         if (serviceCenters.isEmpty()) {
             throw new BookingException(HttpStatus.BAD_REQUEST, "No service centers available in the selected city");
@@ -107,12 +122,7 @@ public class QuotationService {
         emailVariables.put("${email}", user.getEmail());
         emailVariables.put("${phone}", user.getPhone());
         emailVariables.put("${issue}", quotationRequest.getIssue());
-        EmailDetails emailDetails = EmailDetails.builder()
-                .recipients(serviceCenters.stream().map(ServiceCenter::getCity).toList())
-                .variables(emailVariables)
-                .subject("Service Quotation Request")
-                .templateName(Constants.QUOTATION_REQUEST_TEMPLATE)
-                .build();
+        EmailDetails emailDetails = EmailDetails.builder().recipients(serviceCenters.stream().map(ServiceCenter::getCity).toList()).variables(emailVariables).subject("Service Quotation Request").templateName(Constants.QUOTATION_REQUEST_TEMPLATE).build();
         notificationFeignClient.sendEmailFromTemplate(emailDetails);
         return "Success";
     }
@@ -132,12 +142,7 @@ public class QuotationService {
             emailVariables.put("${quotationAmount}", quotation.getTotalPrice());
             emailVariables.put("${serviceDetails}", quotation.getDescription());
             // Create EmailDetails object
-            EmailDetails emailDetails = EmailDetails.builder()
-                    .recipients(Collections.singletonList(user.getEmail()))
-                    .variables(emailVariables)
-                    .subject("New Quotation Received")
-                    .templateName(Constants.QUOTATION_RESPONSE_TEMPLATE)
-                    .build();
+            EmailDetails emailDetails = EmailDetails.builder().recipients(Collections.singletonList(user.getEmail())).variables(emailVariables).subject("New Quotation Received").templateName(Constants.QUOTATION_RESPONSE_TEMPLATE).build();
             // Call notification service to send email
             notificationFeignClient.sendEmailFromTemplate(emailDetails);
         } catch (Exception exception) {

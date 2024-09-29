@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 public class BookingController {
 
     @Autowired
@@ -35,10 +36,32 @@ public class BookingController {
     }
 
 
-    @PutMapping(value = "/appointments/{appointmentId}")
+
+    @GetMapping(value = "/appointments/service-centers/{id}")
+    public ResponseEntity<Response<?>> getAllBookings(@PathVariable("id") String serviceCenterId){
+        return ResponseEntity.ok(new Response<>("1200", "Service Appointments List Fetched successfully",
+                appointmentService.getAllAppointments()));
+    }
+
+
+    @GetMapping(value = "/users/appointments/{username}")
+    public ResponseEntity<Response<?>> getBookingsByUsername(@PathVariable("username") String username){
+        return ResponseEntity.ok(new Response<>("1200", "Service Appointments List Fetched successfully",
+                appointmentService.getAppointmentByUsername(username)));
+    }
+
+
+    @GetMapping(value = "/service-center/appointments/{id}")
+    public ResponseEntity<Response<?>> getAllAppointmentByServiceCenterId(@PathVariable("id") String serviceCenterId){
+        return ResponseEntity.ok(new Response<>("1200", "Service Appointments List Fetched successfully",
+                appointmentService.getAppointmentsByServiceCenterId(serviceCenterId)));
+    }
+
+
+    @PutMapping(value = "/appointments/{id}")
     public ResponseEntity<Response<?>> updateBookings(
-            @PathVariable("id") long appointmentId, @RequestParam(value = "isConfirmed") Boolean isConfirmed,
-            @RequestParam(value = "isCompleted") Boolean isCompleted){
+            @PathVariable("id") int appointmentId, @RequestParam(value = "isConfirmed", required = false) Boolean isConfirmed,
+            @RequestParam(value = "isCompleted", required = false) Boolean isCompleted){
         return ResponseEntity.ok(new Response<>("1200", "Service Appointment updated successfully",
                 appointmentService.updateAppointment(appointmentId, isConfirmed, isCompleted)));
     }

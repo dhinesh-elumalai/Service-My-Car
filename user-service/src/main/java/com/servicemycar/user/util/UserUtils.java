@@ -39,7 +39,7 @@ public class UserUtils {
                 .phone(userRequest.getPhone())
                 .address(userRequest.getAddress())
                 .password(Base64Coder.encodeString(userRequest.getPassword()))
-                .role(userRequest.getCreatedBy().equalsIgnoreCase("admin") ? "admin" : "user")
+                .role(userRequest.getCreatedBy().equalsIgnoreCase("ADMIN") ? "ADMIN" : userRequest.getUserType())
                 .status("Active")
                 .isActive(true)
                 .build();

@@ -26,7 +26,7 @@ public class Quotation {
     private String lineItems;
 
     @Column(name = "SERVICE_CENTER_ID")
-    private int serviceCenterId;
+    private String serviceCenterUsername;
 
     @Column(name = "TOTAL_PRICE")
     private String totalPrice;

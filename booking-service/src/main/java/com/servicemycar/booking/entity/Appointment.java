@@ -16,11 +16,11 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "USER_ID", nullable = false)
-    private int userId;
+    @Column(name = "USERNAME", nullable = false)
+    private String username;
 
     @Column(name = "SERVICE_CENTER_ID", nullable = false)
-    private int serviceCenterId;
+    private String serviceCenterUsername;
 
     @Column(name = "FROM_TIME")
     private long fromTime;

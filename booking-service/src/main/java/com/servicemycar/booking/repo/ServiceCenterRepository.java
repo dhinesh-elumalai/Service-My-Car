@@ -10,4 +10,5 @@ import java.util.List;
 public interface ServiceCenterRepository extends JpaRepository<ServiceCenter, Integer> {
 
     List<ServiceCenter> findByCity(String city);
+    List<ServiceCenter> findByEmail(String email);
 }

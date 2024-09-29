@@ -52,10 +52,21 @@ public class ServiceCenterController {
      * Get service center by city
      * @return List<ServiceCenter>
      */
-    @GetMapping("/service-center/users/{city}")
-    public ResponseEntity<Response<List<ServiceCenter>>> getServiceCenterByUserId(@PathVariable("city") String city) {
+    @GetMapping("/service-center/cities/{city}")
+    public ResponseEntity<Response<List<ServiceCenter>>> getServiceCentersByCity(@PathVariable("city") String city) {
         return new Response<List<ServiceCenter>>().getSuccessResponse("ServiceCenter fetched Successfully!",
                 carService.getServiceCentersByCity(city));
+    }
+
+
+    /**
+     * Get service center by city
+     * @return List<ServiceCenter>
+     */
+    @GetMapping("/service-center/users/{username}")
+    public ResponseEntity<Response<List<ServiceCenter>>> getServiceCentersByUsername(@PathVariable("username") String username) {
+        return new Response<List<ServiceCenter>>().getSuccessResponse("ServiceCenter fetched Successfully!",
+                carService.getServiceCentersByUsername(username));
     }
 
 

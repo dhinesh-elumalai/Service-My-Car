@@ -34,8 +34,15 @@ public class AppointmentService {
     /**
      * @return
      */
-    public List<Appointment> getAppointmentByUserId(int userId) {
-        return appointmentRepository.findByUserId(userId);
+    public List<Appointment> getAppointmentByUsername(String username) {
+        return appointmentRepository.findByUsername(username);
+    }
+
+    /**
+     * @return
+     */
+    public List<Appointment> getAppointmentsByServiceCenterId(String serviceCenterId) {
+        return appointmentRepository.findByServiceCenterUsername(serviceCenterId);
     }
 
     /**

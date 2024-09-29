@@ -11,5 +11,5 @@ public interface QuotationRepository extends JpaRepository<Quotation, Long> {
 
     List<Quotation> findByUsername(String username);
 
-    List<Quotation> findByServiceCenterId(int serviceCenterId);
+    List<Quotation> findByServiceCenterUsername(String serviceCenterId);
 }

@@ -8,6 +8,7 @@ import {
   Input,
   notification,
   Row,
+  Spin,
 } from "antd";
 import { getUsername } from "../utils/token";
 import { notifyBreakDown } from "../services/appointment-service";
@@ -19,6 +20,7 @@ const getGoogleMapsLink = (latitude, longitude) => {
 const Home = (isFromLoginPage) => {
   const [api, contextHolder] = notification.useNotification();
   const [username, setUsername] = useState(getUsername());
+  const [isLoading, setIsLoading] = useState(false);
   const [location, setLocation] = useState({ latitude: null, longitude: null });
 
   const openNotificationWithIcon = (title, message, type) => {
@@ -46,9 +48,9 @@ const Home = (isFromLoginPage) => {
     }
   };
 
-  const onBreakDown = () => {
+  const onBreakDown = async () => {
+    setIsLoading(true)
     getLocation();
-    console.log("Current user is pressing breakdown alert button...", location);
     try {
       const payload = {
         username: username,
@@ -59,7 +61,7 @@ const Home = (isFromLoginPage) => {
           location?.longitude
         ),
       };
-      const response = notifyBreakDown(payload);
+      const response = await notifyBreakDown(payload);
       if (response?.status === 200) {
         openNotificationWithIcon(
           "Success",
@@ -72,12 +74,13 @@ const Home = (isFromLoginPage) => {
     } catch (error) {
       openNotificationWithIcon("Failure", error?.message, "error");
     }
+    setIsLoading(false)
   };
 
   return (
     <>
       {contextHolder}
-
+      <Spin tip="Loading..." spinning={isLoading}>
       <Row>
         <Col xs={2} sm={4} md={6} lg={8} xl={8}></Col>
         <Col xs={20} sm={16} md={12} lg={8} xl={10}>
@@ -112,6 +115,7 @@ const Home = (isFromLoginPage) => {
           )}
         </div>
       </div>
+      </Spin>
     </>
   );
 };

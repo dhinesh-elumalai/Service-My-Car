@@ -9,17 +9,17 @@ import {
   Input,
   notification,
   Space,
+  Spin,
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/user-service";
 import { UserOutlined } from "@ant-design/icons";
 
 const Login = () => {
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const [api, contextHolder] = notification.useNotification();
+  const [isLoading, setIsLoading] = useState(false);
 
   const openNotificationWithIcon = (title, message, type) => {
     api[type]({
@@ -29,6 +29,7 @@ const Login = () => {
   };
 
   const handleLogin = async (form) => {
+    setIsLoading(true)
     const username = form?.username;
     const password = form?.password;
     try {
@@ -45,6 +46,7 @@ const Login = () => {
     } catch (error) {
       openNotificationWithIcon("Failed", error?.message, "error");
     }
+    setIsLoading(false)
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -54,6 +56,7 @@ const Login = () => {
   return (
     <>
       {contextHolder}
+      <Spin tip="Loading..." spinning={isLoading}>
       <div
         style={{
           display: "flex",
@@ -139,6 +142,7 @@ const Login = () => {
           </Form.Item>
         </Form>
       </div>
+      </Spin>
     </>
   );
 };

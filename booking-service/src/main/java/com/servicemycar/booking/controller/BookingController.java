@@ -5,6 +5,7 @@ import com.servicemycar.booking.dto.BreakDownData;
 import com.servicemycar.booking.entity.Appointment;
 import com.servicemycar.booking.service.AppointmentService;
 import com.servicemycar.booking.service.BookingService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
+@Slf4j
 public class BookingController {
 
     @Autowired
@@ -76,6 +78,7 @@ public class BookingController {
 
     @PostMapping(value = "/breakdown-notification")
     public ResponseEntity<Response<?>> notifyBreakDown(@RequestBody BreakDownData breakDownData){
+        log.info("Received Nreakdwn Alert {}", breakDownData);
         return ResponseEntity.ok(new Response<>("1200", bookingService.sendBreakDownAlert(breakDownData), "Success"));
     }
 

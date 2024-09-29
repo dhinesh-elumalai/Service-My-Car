@@ -19,7 +19,9 @@ public class NotificationService {
     private EmailService emailService;
 
     private final static String BREAK_DOWN_ALERT_TEXT="Dear Seller, " +
-            "A car of model : ${model} is stuck nearby your area and requires your help. Please reach out to Mr / Mrs : ${customerName} via email : ${email} or mobile : ${mobile} to help further.";
+            "A car of model : ${model} is stuck nearby your area and requires your help. Please reach out to Mr / Mrs : ${customerName} via email : ${email} or mobile : ${mobile} to help further." +
+            "\n Click ${locationLink}> here </a> for location details";
+
 
     /**
      *
@@ -27,10 +29,12 @@ public class NotificationService {
      */
     public void sendBreakDownAlert(BreakDownAlert breakDownAlert){
         String recipients = String.join(",", breakDownAlert.getRecipients());
-        String content = BREAK_DOWN_ALERT_TEXT
+        String templateContent = getTemplateFromResources("breakdown-notification.html");
+        String content = templateContent
                 .replace("${model}", breakDownAlert.getCarModel())
                 .replace("${customerName}", breakDownAlert.getName())
                 .replace("${email}", breakDownAlert.getEmail())
+                .replace("${locationLink}", breakDownAlert.getLocationLink())
                 .replace("${mobile}", breakDownAlert.getMobile());
        emailService.sendEmailFromText(recipients, "Car Breakdown Alert", content);
     }

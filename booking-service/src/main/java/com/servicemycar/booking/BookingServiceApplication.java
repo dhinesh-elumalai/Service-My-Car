@@ -41,9 +41,9 @@ public class BookingServiceApplication {
 	@PostConstruct
 	public void insertData(){
 		ServiceCenter center1 = new ServiceCenter(1001, "Garuda Automobiles", "aishwaryanew9@gmail.com", "1234567890", "123 Main St", "Chennai", 12.34, 56.78, 4.5);
-		ServiceCenter center2 = new ServiceCenter(1002, "King Automobiles", "kingmotors@gmail.com", "0987654321", "456 Elm St", "Villupuram", 23.45, 67.89, 4.0);
+		ServiceCenter center2 = new ServiceCenter(1002, "King Automobiles", "dhinaprivate@gmail.com", "0987654321", "456 Elm St", "Villupuram", 23.45, 67.89, 4.0);
 		ServiceCenter center3 = new ServiceCenter(1003, "Panda Motors", "pandamotors@gmail.com", "1122334455", "789 Oak St", "Coimbatore", 34.56, 78.90, 3.5);
-		ServiceCenter center4 = new ServiceCenter(1004, "King Kong Motors", "aishwaryanew9@gmail.com", "1122335455", "789 Oak St", "Villupuram", 34.56, 78.90, 3.5);
+		ServiceCenter center4 = new ServiceCenter(1004, "King Kong Motors", "aishwaryanew9@gmail.com", "1122335455", "789 Oak St", "Villupuram1", 34.56, 78.90, 3.5);
 		serviceCenterRepository.saveAll(Arrays.asList(center1, center2, center3, center4));
 
 		Appointment appointment1 = new Appointment(1001, "aishwaryanew7@gmail.com", "aishwaryanew9@gmail.com", System.currentTimeMillis() , System.currentTimeMillis() + 10000, true, true);

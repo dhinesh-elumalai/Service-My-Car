@@ -55,11 +55,11 @@ public class BookingService {
         breakDownAlert.setCarModel(car.get().getModel());
         breakDownAlert.setName(userData.getName());
         breakDownAlert.setLatitude(breakDownData.getLatitude());
-        breakDownAlert.setLongitude(breakDownAlert.getLongitude());
+        breakDownAlert.setLongitude(breakDownData.getLongitude());
         breakDownAlert.setEmail(userData.getEmail());
         breakDownAlert.setMobile(userData.getPhone());
         breakDownAlert.setLocation(userData.getAddress());
-        breakDownAlert.setLocationLink(breakDownAlert.getLocation());
+        breakDownAlert.setLocationLink(breakDownData.getLocationLink());
         List<String> recipients = serviceCenterRepository.findByCity(userData.getAddress()).stream().map(ServiceCenter::getEmail).collect(Collectors.toList());
         breakDownAlert.setRecipients(recipients);
         log.info("Sending Notification Request {}", breakDownAlert);

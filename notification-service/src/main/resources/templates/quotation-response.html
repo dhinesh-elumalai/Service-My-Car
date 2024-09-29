@@ -1,0 +1,66 @@
+<!-- File: notification-service/src/main/resources/templates/quotation-response.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quotation Received Notification</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        .container p {
+            color: #333333;
+        }
+        .container ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .container li {
+            color: #555555;
+            margin: 5px 0;
+        }
+        .container li strong {
+            color: #007BFF;
+        }
+        .button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <p>Dear ${userName},</p>
+    <p>We are pleased to inform you that we have received the quotation for your car service request. Below are the details:</p>
+    <ul>
+        <li><strong>Car Model:</strong> ${carModel}</li>
+        <li><strong>Quotation Amount:</strong> ${quotationAmount}</li>
+        <li><strong>Service Details:</strong> ${serviceDetails}</li>
+    </ul>
+    <p>Please review the quotation and proceed with the next steps.</p>
+    <a href="https://yourportal.com/login?role=customer" class="button">Login to Portal</a>
+    <p>Thank you,</p>
+</div>
+</body>
+</html>

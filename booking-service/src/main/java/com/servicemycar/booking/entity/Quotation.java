@@ -19,6 +19,9 @@ public class Quotation {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "carModel")
+    private String carModel;
+
     @Column(name = "LINE_ITEMS")
     private String lineItems;
 
@@ -28,7 +31,7 @@ public class Quotation {
     @Column(name = "TOTAL_PRICE")
     private String totalPrice;
 
-    @Column(name = "USER_ID")
-    private int requestedUserId;
+    @Column(name = "USERNAME")
+    private String username;
 
 }

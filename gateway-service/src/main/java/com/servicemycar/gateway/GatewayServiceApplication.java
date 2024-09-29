@@ -1,7 +1,9 @@
 package com.servicemycar.gateway;
 
+import com.servicemycar.gateway.config.AuthorizationFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.gateway.config.GlobalCorsProperties;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +18,17 @@ public class GatewayServiceApplication {
 	@Bean
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
-				.route("booking-service", r -> r.path("/booking/**")
-						.uri("http://localhost:9091/booking"))
+				.route("booking-service", r -> r.path("/bookings/**")
+						.filters(f -> f.filter(new AuthorizationFilter()))
+						.uri("http://localhost:2021/bookings/"))
+				.route("user-service", r -> r.path("/users/**")
+						.uri("http://localhost:2022/users/"))
 				.build();
 	}
+
+//	@Bean
+//	public GlobalCorsProperties globalCorsProperties() {
+//		return new GlobalCorsProperties();
+//	}
 }
+

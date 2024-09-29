@@ -1,8 +1,16 @@
 package com.servicemycar.notification.service;
 
 import com.servicemycar.notification.dto.BreakDownAlert;
+import com.servicemycar.notification.model.EmailDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Map;
 
 @Service
 public class NotificationService {
@@ -25,6 +33,45 @@ public class NotificationService {
                 .replace("${email}", breakDownAlert.getEmail())
                 .replace("${mobile}", breakDownAlert.getMobile());
        emailService.sendEmailFromText(recipients, "Car Breakdown Alert", content);
+    }
+
+
+    /**
+     *
+     * @param emailDetails Break down Alert Details
+     */
+    public void sendEmailFromTemplate(EmailDetails emailDetails){
+        String recipients = String.join(",", emailDetails.getRecipients());
+        String templateContent = getTemplateFromResources(emailDetails.getTemplateName());
+        for (Map.Entry<String, String> entry : emailDetails.getVariables().entrySet()) {
+            templateContent = templateContent.replace(entry.getKey(), entry.getValue());
+        }
+        emailService.sendEmailFromText(recipients, emailDetails.getSubject(), templateContent);
+    }
+
+    /**
+     *
+     * @param emailDetails Email Details
+     */
+    public void sendEmail(EmailDetails emailDetails){
+        String recipients = String.join(",", emailDetails.getRecipients());
+        emailService.sendEmailFromText(recipients, emailDetails.getSubject(), emailDetails.getMsgBody());
+    }
+
+    /**
+     * Read the template from resources
+     * @param templateName Template Name
+     * @return  Template Content
+     */
+    private String getTemplateFromResources(String templateName) {
+        ClassPathResource resource = new ClassPathResource("templates/" + templateName);
+        Path path;
+        try {
+            path = Paths.get(resource.getURI());
+            return new String(Files.readAllBytes(path));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

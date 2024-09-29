@@ -17,8 +17,8 @@ public class ServiceCenterController {
 
     /**
      *
-     * @param carData
-     * @return
+     * @param carData ServiceCenter
+     * @return ServiceCenter
      */
     @PostMapping("/service-center")
     public ResponseEntity<Response<ServiceCenter>> createServiceCenter(ServiceCenter carData) {
@@ -27,8 +27,8 @@ public class ServiceCenterController {
     }
 
     /**
-     *67hjghh67862333334rew
-     * @return
+     * Get service centers
+     * @return List<ServiceCenter>
      */
     @GetMapping("/service-center")
     public ResponseEntity<Response<List<ServiceCenter>>> getServiceCenters() {
@@ -38,8 +38,8 @@ public class ServiceCenterController {
 
 
     /**
-     *67hjghh67862333334rew
-     * @return
+     * Get service centers
+     * @return ServiceCenter
      */
     @GetMapping("/service-center/{serviceCenterId}")
     public ResponseEntity<Response<ServiceCenter>> getServiceCenters(@PathVariable("serviceCenterId") int serviceCenterId) {
@@ -49,8 +49,8 @@ public class ServiceCenterController {
 
 
     /**
-     *
-     * @return
+     * Get service center by city
+     * @return List<ServiceCenter>
      */
     @GetMapping("/service-center/users/{city}")
     public ResponseEntity<Response<List<ServiceCenter>>> getServiceCenterByUserId(@PathVariable("city") String city) {
@@ -60,11 +60,11 @@ public class ServiceCenterController {
 
 
     /**
-     *67hjghh67862333334rew
-     * @return
+     * Update service center
+     * @return ServiceCenter
      */
     @DeleteMapping("/service-center/{serviceCenterId}")
-    public ResponseEntity<Response<String>> deleteServiceCenteryId(@PathVariable("carId") int carId) {
+    public ResponseEntity<Response<String>> deleteServiceCenterById(@PathVariable("carId") int carId) {
         return new Response<String>().getSuccessResponse("ServiceCenter deleted Successfully!",
                 carService.deleteServiceCenterById(carId));
     }

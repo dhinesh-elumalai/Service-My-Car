@@ -7,3 +7,7 @@
 /falcon-deploy
 /falcon-deploy
 *.class
+.DS_Store
+*.xml
+*.zip
+/falcon-deploy/*

@@ -51,18 +51,20 @@ public class NotificationService {
      *
      * @param emailDetails Break down Alert Details
      */
-    public void sendEmailFromTemplate(EmailDetails emailDetails){
-        try{
-        String recipients = String.join(",", emailDetails.getRecipients());
-        String templateContent = getTemplateFromResources(emailDetails.getTemplateName());
-        for (Map.Entry<String, String> entry : emailDetails.getVariables().entrySet()) {
-            templateContent = templateContent.replace(entry.getKey(), entry.getValue());
+    public void sendEmailFromTemplate(EmailDetails emailDetails) {
+
+        for (String recipient : emailDetails.getRecipients()) {
+            try {
+                String templateContent = getTemplateFromResources(emailDetails.getTemplateName());
+                for (Map.Entry<String, String> entry : emailDetails.getVariables().entrySet()) {
+                    templateContent = templateContent.replace(entry.getKey(), entry.getValue());
+                }
+                emailService.sendEmailFromText(recipient, emailDetails.getSubject(), templateContent);
+            } catch (Exception exception) {
+                log.info("Exception sending mail", exception);
+            }
         }
-        emailService.sendEmailFromText(recipients, emailDetails.getSubject(), templateContent);
-        }
-        catch (Exception exception){
-            log.info("Exception sending mail", exception);
-        }
+
     }
 
     /**

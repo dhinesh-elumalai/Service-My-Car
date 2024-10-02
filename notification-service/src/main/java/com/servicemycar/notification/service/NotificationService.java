@@ -30,19 +30,20 @@ public class NotificationService {
      * @param breakDownAlert Break down Alert Details
      */
     public void sendBreakDownAlert(BreakDownAlert breakDownAlert){
-        try {
-            String recipients = String.join(",", breakDownAlert.getRecipients());
-            String templateContent = getTemplateFromResources("breakdown-notification.html");
-            String content = templateContent
-                    .replace("${model}", breakDownAlert.getCarModel())
-                    .replace("${customerName}", breakDownAlert.getName())
-                    .replace("${email}", breakDownAlert.getEmail())
-                    .replace("${locationLink}", breakDownAlert.getLocationLink())
-                    .replace("${mobile}", breakDownAlert.getMobile());
-            emailService.sendEmailFromText(recipients, "Car Breakdown Alert", content);
-        }
-        catch (Exception exception){
-            log.info("Exception sending mail", exception);
+        for (String recipient : breakDownAlert.getRecipients()) {
+            try {
+//                String recipients = String.join(",", breakDownAlert.getRecipients());
+                String templateContent = getTemplateFromResources("breakdown-notification.html");
+                String content = templateContent
+                        .replace("${model}", breakDownAlert.getCarModel())
+                        .replace("${customerName}", breakDownAlert.getName())
+                        .replace("${email}", breakDownAlert.getEmail())
+                        .replace("${locationLink}", breakDownAlert.getLocationLink())
+                        .replace("${mobile}", breakDownAlert.getMobile());
+                emailService.sendEmailFromText(recipient, "Car Breakdown Alert", content);
+            } catch (Exception exception) {
+                log.info("Exception sending mail", exception);
+            }
         }
     }
 

@@ -32,7 +32,7 @@ public class UserUtils {
      */
     public static User convertUserRequestToUser(UserRequest userRequest) {
         return User.builder()
-                .username(userRequest.getUserName())
+                .username(userRequest.getEmail())
                 .firstName(userRequest.getFirstName())
                 .lastName(userRequest.getLastName())
                 .email(userRequest.getEmail())

@@ -69,6 +69,9 @@ public class UserService {
      * @return UserResponse
      */
     public UserResponse createUser(UserRequest userRequest) {
+        if(userRepository.existsByUsername(userRequest.getEmail())){
+            throw new UserException(HttpStatus.BAD_REQUEST, "User email id already exists!");
+        }
         User user = UserUtils.convertUserRequestToUser(userRequest);
         try {
             User savedUser = userRepository.save(user);

@@ -1,6 +1,6 @@
 // src/App.js
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import PrivateRoute from "./components/PrivateRoute";
@@ -23,6 +23,10 @@ const App = () => {
               <MainPage />
             </PrivateRoute>
           }
+        />
+        <Route
+          path="*"
+          element={<Navigate to="/app/home" replace />}
         />
       </Routes>
     </Router>

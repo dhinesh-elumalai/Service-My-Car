@@ -2,6 +2,7 @@ package com.servicemycar.notification.service;
 
 import com.servicemycar.notification.dto.BreakDownAlert;
 import com.servicemycar.notification.model.EmailDetails;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 @Service
+@Slf4j
 public class NotificationService {
 
     @Autowired
@@ -28,15 +30,20 @@ public class NotificationService {
      * @param breakDownAlert Break down Alert Details
      */
     public void sendBreakDownAlert(BreakDownAlert breakDownAlert){
-        String recipients = String.join(",", breakDownAlert.getRecipients());
-        String templateContent = getTemplateFromResources("breakdown-notification.html");
-        String content = templateContent
-                .replace("${model}", breakDownAlert.getCarModel())
-                .replace("${customerName}", breakDownAlert.getName())
-                .replace("${email}", breakDownAlert.getEmail())
-                .replace("${locationLink}", breakDownAlert.getLocationLink())
-                .replace("${mobile}", breakDownAlert.getMobile());
-       emailService.sendEmailFromText(recipients, "Car Breakdown Alert", content);
+        try {
+            String recipients = String.join(",", breakDownAlert.getRecipients());
+            String templateContent = getTemplateFromResources("breakdown-notification.html");
+            String content = templateContent
+                    .replace("${model}", breakDownAlert.getCarModel())
+                    .replace("${customerName}", breakDownAlert.getName())
+                    .replace("${email}", breakDownAlert.getEmail())
+                    .replace("${locationLink}", breakDownAlert.getLocationLink())
+                    .replace("${mobile}", breakDownAlert.getMobile());
+            emailService.sendEmailFromText(recipients, "Car Breakdown Alert", content);
+        }
+        catch (Exception exception){
+            log.info("Exception sending mail", exception);
+        }
     }
 
 
@@ -45,12 +52,17 @@ public class NotificationService {
      * @param emailDetails Break down Alert Details
      */
     public void sendEmailFromTemplate(EmailDetails emailDetails){
+        try{
         String recipients = String.join(",", emailDetails.getRecipients());
         String templateContent = getTemplateFromResources(emailDetails.getTemplateName());
         for (Map.Entry<String, String> entry : emailDetails.getVariables().entrySet()) {
             templateContent = templateContent.replace(entry.getKey(), entry.getValue());
         }
         emailService.sendEmailFromText(recipients, emailDetails.getSubject(), templateContent);
+        }
+        catch (Exception exception){
+            log.info("Exception sending mail", exception);
+        }
     }
 
     /**

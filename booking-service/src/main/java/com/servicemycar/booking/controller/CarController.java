@@ -23,7 +23,7 @@ public class CarController {
      * @return CarData
      */
     @PostMapping("/cars")
-    public ResponseEntity<Response<CarData>> createCar(CarData carData) {
+    public ResponseEntity<Response<CarData>> createCar( @RequestBody CarData carData) {
         return new Response<CarData>().getSuccessResponse("Car created Successfully",
                 carService.createCarData(carData));
     }

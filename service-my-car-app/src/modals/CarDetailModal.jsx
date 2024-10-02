@@ -3,6 +3,7 @@ import React from 'react';
 import { Modal, Form, Input, Button, Select } from 'antd';
 import { Option } from 'antd/es/mentions';
 import { createCar } from '../services/car-service';
+import { getUsername } from '../utils/token';
 
 const CarDetailsModal = ({ visible, onSuccess, onCancel , onFailure}) => {
   const [form] = Form.useForm();
@@ -10,7 +11,11 @@ const CarDetailsModal = ({ visible, onSuccess, onCancel , onFailure}) => {
 
   const createCarData = async (values)=>{
     try{
-        const response = await createCar(values);
+       const payload = {
+        ...values,
+        username : getUsername()
+       }
+        const response = await createCar(payload);
         if(response?.status === 200){
             onSuccess(response?.data?.message)
         }else{

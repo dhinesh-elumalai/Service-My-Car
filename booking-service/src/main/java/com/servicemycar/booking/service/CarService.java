@@ -1,8 +1,10 @@
 package com.servicemycar.booking.service;
 
 import com.servicemycar.booking.entity.CarData;
+import com.servicemycar.booking.exception.BookingException;
 import com.servicemycar.booking.repo.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,7 +38,8 @@ public class CarService {
      */
     public CarData getCarByUsername(String username){
         if(carRepository.findByUsername(username).isEmpty()){
-            throw new RuntimeException("User does not have a car owned");
+           return null;
+//            throw new BookingException(HttpStatus.OK, "User does not have a car owned");
         }
         return carRepository.findByUsername(username).get();
     }

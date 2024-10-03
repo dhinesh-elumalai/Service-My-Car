@@ -5,12 +5,14 @@ import com.servicemycar.booking.dto.BreakDownData;
 import com.servicemycar.booking.dto.UserResponse;
 import com.servicemycar.booking.entity.CarData;
 import com.servicemycar.booking.entity.ServiceCenter;
+import com.servicemycar.booking.exception.BookingException;
 import com.servicemycar.booking.feign.NotificationFeignClient;
 import com.servicemycar.booking.feign.UsersFeignClient;
 import com.servicemycar.booking.repo.CarRepository;
 import com.servicemycar.booking.repo.ServiceCenterRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +51,7 @@ public class BookingService {
         }
         Optional<CarData> car = carRepository.findByUsername(breakDownData.getUsername());
         if(car.isEmpty()){
-            throw new RuntimeException("User does not have a car owned");
+            throw new BookingException(HttpStatus.BAD_REQUEST, "User does not have a car owned");
         }
         BreakDownAlert breakDownAlert = new BreakDownAlert();
         breakDownAlert.setCarModel(car.get().getModel());

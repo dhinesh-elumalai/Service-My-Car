@@ -1,19 +1,26 @@
 // File: `src/components/ServiceCenterModal.js`
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Button, Select } from 'antd';
-import { Option } from 'antd/es/mentions';
+import { Option } from 'antd/es/mentions'; 
+import {createServiceCenter} from './../services/service-center-service'
 
 const ServiceCenterRegisterModal = ({ visible, onSuccess, onCancel, onFailure }) => {
   const [form] = Form.useForm();
 
 
-  const onSubmit = (values) =>{
+  const onSubmit =async  (values) =>{
     try{
         const payload = {
             ...values,
             rating : 4.7,
             latitude : 80.87,
-            longitude : 90.76
+            longitude : 90.76,
+        }
+        const response = await createServiceCenter(payload);
+        if (response?.status === 200) {
+          OnSuccess(response?.data?.message);
+        } else {
+          onFailure(response?.data?.message);
         }
     } catch(error){
         onFailure(error?.message)

@@ -22,7 +22,7 @@ public class ServiceCenterController {
      * @return ServiceCenter
      */
     @PostMapping("/service-center")
-    public ResponseEntity<Response<ServiceCenter>> createServiceCenter(ServiceCenter carData) {
+    public ResponseEntity<Response<ServiceCenter>> createServiceCenter( @RequestBody ServiceCenter carData) {
         return new Response<ServiceCenter>().getSuccessResponse("ServiceCenter created Successfully",
                 carService.createServiceCenter(carData));
     }

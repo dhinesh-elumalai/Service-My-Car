@@ -117,9 +117,19 @@ const ServiceCenters = () => {
 
   const [serviceCenterCreateModalVisible, setServiceCenterCreateModalVisible] = useState(false);
 
-  const onCreate = (values) => {
-    console.log('Received values from form: ', values);
+  const onCreateCarSuccess = (message) => {
+    openNotificationWithIcon(
+      "Success",
+      "Service Center Registered Successfully",
+      "success"
+    );
     setServiceCenterCreateModalVisible(false);
+  };
+
+  
+  const onCreateCarFailure = (message) => {
+    openNotificationWithIcon("Failed",message, "error");
+    setServiceCenterCreateModalVisible(true);
   };
 
 
@@ -142,7 +152,8 @@ const ServiceCenters = () => {
       </Button>
       <ServiceCenterRegisterModal
         visible={serviceCenterCreateModalVisible}
-        onCreate={onCreate}
+        onSuccess={onCreateCarSuccess}
+        onFailure={onCreateCarFailure}
         onCancel={() => {
           setServiceCenterCreateModalVisible(false);
         }}/>

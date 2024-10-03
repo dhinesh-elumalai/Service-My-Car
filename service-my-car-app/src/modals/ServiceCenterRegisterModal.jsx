@@ -3,6 +3,7 @@ import React from 'react';
 import { Modal, Form, Input, InputNumber, Button, Select } from 'antd';
 import { Option } from 'antd/es/mentions'; 
 import {createServiceCenter} from './../services/service-center-service'
+import { getUsername } from '../utils/token';
 
 const ServiceCenterRegisterModal = ({ visible, onSuccess, onCancel, onFailure }) => {
   const [form] = Form.useForm();
@@ -15,6 +16,7 @@ const ServiceCenterRegisterModal = ({ visible, onSuccess, onCancel, onFailure })
             rating : 4.7,
             latitude : 80.87,
             longitude : 90.76,
+            email : getUsername(),
         }
         const response = await createServiceCenter(payload);
         if (response?.status === 200) {
@@ -58,13 +60,13 @@ const ServiceCenterRegisterModal = ({ visible, onSuccess, onCancel, onFailure })
         >
           <Input />
         </Form.Item>
-        <Form.Item
+        {/* <Form.Item
           name="email"
           label="Email"
           rules={[{ required: true, message: 'Please enter the email!' }]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item
           name="mobile"
           label="Mobile"

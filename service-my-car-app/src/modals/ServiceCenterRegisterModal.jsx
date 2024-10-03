@@ -18,7 +18,7 @@ const ServiceCenterRegisterModal = ({ visible, onSuccess, onCancel, onFailure })
         }
         const response = await createServiceCenter(payload);
         if (response?.status === 200) {
-          OnSuccess(response?.data?.message);
+          onSuccess(response?.data?.message);
         } else {
           onFailure(response?.data?.message);
         }

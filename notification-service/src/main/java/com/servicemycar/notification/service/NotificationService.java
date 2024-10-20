@@ -32,7 +32,6 @@ public class NotificationService {
     public void sendBreakDownAlert(BreakDownAlert breakDownAlert){
         for (String recipient : breakDownAlert.getRecipients()) {
             try {
-//                String recipients = String.join(",", breakDownAlert.getRecipients());
                 String templateContent = getTemplateFromResources("breakdown-notification.html");
                 String content = templateContent
                         .replace("${model}", breakDownAlert.getCarModel())

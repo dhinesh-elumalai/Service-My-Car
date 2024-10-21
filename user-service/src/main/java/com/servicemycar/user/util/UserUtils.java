@@ -22,6 +22,7 @@ public class UserUtils {
                 .role(user.getRole())
                 .phone(user.getPhone())
                 .address(user.getAddress())
+                .adhaarNumber(user.getAdhaarNumber())
                 .build();
     }
 
@@ -38,6 +39,7 @@ public class UserUtils {
                 .email(userRequest.getEmail())
                 .phone(userRequest.getPhone())
                 .address(userRequest.getAddress())
+                .adhaarNumber(userRequest.getAdhaarNumber())
                 .password(Base64Coder.encodeString(userRequest.getPassword()))
                 .role(userRequest.getCreatedBy().equalsIgnoreCase("ADMIN") ? "ADMIN" : userRequest.getUserType())
                 .status("Active")

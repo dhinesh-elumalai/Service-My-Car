@@ -24,5 +24,7 @@ public class UserResponse {
     private String phone;
     @JsonProperty("address")
     private String address;
+    @JsonProperty("adhaarNumber")
+    private String adhaarNumber;
 
 }

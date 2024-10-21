@@ -41,6 +41,16 @@ const carColumns = [
     dataIndex: "fuelType",
     key: "fuelType",
   },
+  {
+    title: "Vehicle Number",
+    dataIndex: "vehicleNumber",
+    key: "vehicleNumber",
+  },
+  {
+    title: "Engine Number",
+    dataIndex: "engineNumber",
+    key: "engineNumber",
+  },
   // {
   //   title: "Actions",
   //   dataIndex: "actions",
@@ -114,6 +124,7 @@ const ProfilePage = () => {
     { key: "role", field: "Role", value: user.role },
     { key: "phone", field: "Phone", value: user.phone },
     { key: "address", field: "Address", value: user.address },
+    { key: "adhaarNumber", field: "Adhaar Number", value: user.adhaarNumber },
   ];
 
   const onCarCreateSuccess = ({message}) => {

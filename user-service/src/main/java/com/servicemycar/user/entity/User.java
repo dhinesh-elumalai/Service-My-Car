@@ -30,6 +30,8 @@ public class User extends BaseEntity {
     private String phone;
     @Column(name ="ADDRESS")
     private String address;
+    @Column(name ="adhaarNumber")
+    private String adhaarNumber;
     @Column(name ="password")
     private String password;
     @Column(name ="ROLE")

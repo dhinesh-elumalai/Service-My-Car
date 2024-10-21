@@ -29,6 +29,14 @@ public class CarData {
     @JsonProperty("year")
     private String year;
 
+    @Column(name = "vehicle_number")
+    @JsonProperty("vehicleNumber")
+    private String vehicleNumber;
+
+    @Column(name = "engine_number")
+    @JsonProperty("engineNumber")
+    private String engineNumber;
+
     @Column(name = "fuelType")
     @JsonProperty("fuelType")
     private String fuelType;

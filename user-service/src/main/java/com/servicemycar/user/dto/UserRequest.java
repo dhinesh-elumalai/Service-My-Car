@@ -22,6 +22,8 @@ public class UserRequest {
     private String email;
     @JsonProperty(value = "phone")
     private String phone;
+    @JsonProperty(value = "adhaarNumber")
+    private String adhaarNumber;
     @JsonProperty(value = "address")
     private String address;
     @JsonProperty(value = "password")

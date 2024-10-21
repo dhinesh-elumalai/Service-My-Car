@@ -26,6 +26,7 @@ const CarDetailsModal = ({ visible, onSuccess, onCancel , onFailure}) => {
     }
   }
 
+
   return (
     <Modal
       visible={visible}
@@ -80,6 +81,20 @@ const CarDetailsModal = ({ visible, onSuccess, onCancel , onFailure}) => {
             <Option value="Petrol">{"Petrol"}</Option>
             <Option value="Diesel">{"Diesel"}</Option>
           </Select>
+        </Form.Item>
+        <Form.Item
+          name="vehicleNumber"
+          label="Vehicle Number"
+          rules={[{ required: true, message: 'Please input the vehicle Number!' }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="engineNumber"
+          label="Engine Number"
+          rules={[{ required: true, message: 'Please input the engine number!' }]}
+        >
+          <Input />
         </Form.Item>
       </Form>
     </Modal>

@@ -62,11 +62,11 @@ public class BookingServiceApplication {
 
 		quotationRepository.saveAll(Arrays.asList(quotation1, quotation2, quotation3, quotation4, quotation5));
 
-		CarData car1 = new CarData(1001, "Alto 800", "Maruti Suzuki", "2018", "Petrol", "aishwaryanew7@gmail.com");
-		CarData car2 = new CarData(1001, "Thar 1600", "Mahindra", "2021", "Petrol", "aishwaryanew8@gmail.com");
-		CarData car3 = new CarData(1001, "Scorpio 8000", "Mahindra", "2013", "Petrol", "aishwaryanew9@gmail.com");
-		CarData car4 = new CarData(1001, "Baleno 600", "Maruti Suzuki", "2020", "Diesel", "aishwaryanew10@gmail.com");
-		CarData car5 = new CarData(1001, "i20", "Hyundai", "2015", "Petrol", "aishwaryanew11@gmail.com");
+		CarData car1 = new CarData(1001, "Alto 800", "Maruti Suzuki", "2018", "TN32 AL 3225", "H98123SYDB2918339", "Petrol", "aishwaryanew7@gmail.com");
+		CarData car2 = new CarData(1001, "Thar 1600", "Mahindra", "2021", "TN32 AL 3425", "H98123SYLB2918339", "Petrol", "aishwaryanew8@gmail.com");
+		CarData car3 = new CarData(1001, "Scorpio 8000", "Mahindra", "2013", "TN32 AL 3465", "H98123FYDB2918339", "Petrol", "aishwaryanew9@gmail.com");
+		CarData car4 = new CarData(1001, "Baleno 600", "Maruti Suzuki", "2020", "TN32 AL 3205", "H98123STDB2918339", "Diesel", "aishwaryanew10@gmail.com");
+		CarData car5 = new CarData(1001, "i20", "Hyundai", "2015", "TN32 AL 3125", "H98123SYDB2918369","Petrol", "aishwaryanew11@gmail.com");
 
 		carRepository.saveAll(Arrays.asList(car1, car2, car3, car4, car5));
 	}

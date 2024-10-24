@@ -205,6 +205,20 @@ const Signup = () => {
           </Form.Item>
 
           <Form.Item
+            name="adhaarNumber"
+            label="Adhaar Number"
+            rules={[
+              {
+                required: true,
+                message: "Please input your adhaar number!",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input.Password />
+          </Form.Item>
+
+          <Form.Item
             name="phone"
             label="Phone Number"
             rules={[

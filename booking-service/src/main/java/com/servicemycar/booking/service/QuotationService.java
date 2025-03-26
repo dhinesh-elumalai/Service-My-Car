@@ -142,7 +142,7 @@ public class QuotationService {
             emailVariables.put("${quotationAmount}", quotation.getTotalPrice());
             emailVariables.put("${serviceDetails}", quotation.getDescription());
             // Create EmailDetails object
-            EmailDetails emailDetails = EmailDetails.builder().recipients(Collections.singletonList(user.getEmail())).variables(emailVariables).subject("New Quotation Received").templateName(Constants.QUOTATION_RESPONSE_TEMPLATE).build();
+            EmailDetails emailDetails = EmailDetails.builder().recipients(serviceCenters.stream().map(ServiceCenter::getEmail).toList()).variables(emailVariables).subject("Service Quotation Request").templateName(Constants.QUOTATION_REQUEST_TEMPLATE).build();
             // Call notification service to send email
             notificationFeignClient.sendEmailFromTemplate(emailDetails);
         } catch (Exception exception) {
